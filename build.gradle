@@ -30,7 +30,7 @@ java {
 }
 
 jar {
-    from('../license/APACHE.txt') {
+    from('LICENSE.txt') {
         rename { 'META-INF/LICENSE.txt' }
     }
 }
