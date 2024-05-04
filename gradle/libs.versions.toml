@@ -1,0 +1,15 @@
+[versions]
+lombok = '1.18.32'
+aleph = '0.1.1'
+jetbrain-annotations = '24.0.1'
+
+gson = '2.10.1'
+guava = '32.1.1-jre'
+
+[libraries]
+lombok = { module = 'org.projectlombok:lombok', version.ref = 'lombok' }
+aleph = { module = 'net.andreinc:aleph', version.ref = 'aleph' }
+jetbrain-annotations = { module = 'org.jetbrains:annotations', version.ref = 'jetbrain-annotations' }
+
+google-gson = { module = 'com.google.code.gson:gson', version.ref = 'gson' }
+google-guava = { module = 'com.google.guava:guava', version.ref = 'guava' }

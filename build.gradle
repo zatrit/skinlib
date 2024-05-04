@@ -1,0 +1,46 @@
+plugins {
+    id 'java-library'
+    id 'maven-publish'
+}
+
+group 'net.zatrit'
+version project.skinlib_version
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compileOnly libs.jetbrain.annotations
+
+    compileOnly libs.lombok
+    annotationProcessor libs.lombok
+
+    implementation libs.google.gson
+    implementation libs.google.guava
+
+    implementation libs.aleph
+}
+
+java {
+    sourceCompatibility JavaVersion.VERSION_1_8
+    targetCompatibility JavaVersion.VERSION_1_8
+
+    withSourcesJar()
+}
+
+jar {
+    from('../license/APACHE.txt') {
+        rename { 'META-INF/LICENSE.txt' }
+    }
+}
+
+publishing {
+    publications {
+        //noinspection GroovyAssignabilityCheck
+        java(MavenPublication) {
+            //noinspection GroovyAssignabilityCheck
+            from components.java
+        }
+    }
+}
