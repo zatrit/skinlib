@@ -46,8 +46,7 @@ public class TextureDispatcher {
 
         return CompletableFuture.supplyAsync(() -> {
             val pairs = futures.map(CompletableFuture::join).filter(
-                Objects::nonNull).collect(
-                Collectors.toList());
+                Objects::nonNull).collect(Collectors.toList());
 
             //noinspection DataFlowIssue,ConstantValue,SuspiciousToArrayCall,OptionalGetWithoutIsPresent
             return Arrays.stream(TextureType.values()).parallel()
