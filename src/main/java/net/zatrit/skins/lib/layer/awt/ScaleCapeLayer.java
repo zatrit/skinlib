@@ -4,7 +4,6 @@ import com.google.common.math.IntMath;
 import lombok.Setter;
 import lombok.val;
 import net.zatrit.skins.lib.TextureType;
-import net.zatrit.skins.lib.api.Layer;
 import net.zatrit.skins.lib.data.TypedTexture;
 import org.jetbrains.annotations.NotNull;
 

@@ -46,10 +46,7 @@ public final class DirectResolver implements Resolver {
 
         types.parallelStream().forEach(type -> textures.put(
             type,
-            downloadTexture(
-                replaces,
-                type
-            )
+            downloadTexture(replaces, type)
         ));
 
         /* Since you can't check for the existence/change of a

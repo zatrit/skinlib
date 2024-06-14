@@ -1,6 +1,5 @@
 package net.zatrit.skins.lib.resolver;
 
-import lombok.AllArgsConstructor;
 import lombok.Cleanup;
 import lombok.val;
 import net.zatrit.skins.lib.BasePlayerTextures;
@@ -24,19 +23,29 @@ import java.util.EnumMap;
  * server, i.e. loads by name from the {@code textures/} and
  * {@code metadata/} folders.
  */
-@AllArgsConstructor
 public final class LocalResolver implements Resolver {
     private final Config config;
-    private final Path directory;
+    private final Path texturesDir;
+    private final Path metadataDir;
+
+    @SuppressWarnings("ResultOfMethodCallIgnored")
+    public LocalResolver(Config config, @NotNull Path directory) {
+        this.config = config;
+        this.texturesDir = directory.resolve("textures");
+        this.metadataDir = directory.resolve("metadata");
+
+        metadataDir.toFile().mkdirs();
+
+        for (val type : TextureType.values()) {
+            texturesDir.resolve(type.toString().toLowerCase()).toFile().mkdirs();
+        }
+    }
 
     @Override
     public @NotNull PlayerTextures resolve(@NotNull Profile profile)
         throws IOException {
         val name = profile.getName();
         val textures = new EnumMap<TextureType, Texture>(TextureType.class);
-
-        val metadataDir = this.directory.resolve("metadata");
-        val texturesDir = this.directory.resolve("textures");
 
         for (val type : TextureType.values()) {
             Metadata metadata = null;
@@ -49,8 +58,7 @@ public final class LocalResolver implements Resolver {
             }
 
             val url = texturesFile.toURI().toURL().toString();
-            val metadataFile = metadataDir.resolve(typeName).resolve(
-                name + ".json");
+            val metadataFile = metadataDir.resolve(name + ".json");
 
             if (metadataFile.toFile().isFile()) {
                 @Cleanup val reader = Files.newBufferedReader(metadataFile);
@@ -64,9 +72,6 @@ public final class LocalResolver implements Resolver {
             textures.put(type, new URLTexture(url, metadata));
         }
 
-        return new BasePlayerTextures<>(
-            textures,
-            this.config.getLayers()
-        );
+        return new BasePlayerTextures<>(textures, this.config.getLayers());
     }
 }
