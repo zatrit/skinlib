@@ -6,7 +6,6 @@ import net.zatrit.skins.lib.api.PlayerTextures;
 import net.zatrit.skins.lib.api.Profile;
 import net.zatrit.skins.lib.api.Resolver;
 import net.zatrit.skins.lib.data.TypedTexture;
-import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
@@ -47,7 +46,7 @@ public class TextureDispatcher {
 
         return CompletableFuture.supplyAsync(() -> {
             val pairs = futures.map(CompletableFuture::join).filter(
-                Objects::nonNull).sorted().collect(
+                Objects::nonNull).collect(
                 Collectors.toList());
 
             //noinspection DataFlowIssue,ConstantValue,SuspiciousToArrayCall,OptionalGetWithoutIsPresent
