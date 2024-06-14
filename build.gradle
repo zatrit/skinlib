@@ -1,13 +1,10 @@
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-
 plugins {
     id 'java-library'
     id 'maven-publish'
-    id 'org.jetbrains.kotlin.jvm' version '1.9.23'
 }
 
 group 'net.zatrit'
-version project.skinlib_version
+version project.version
 
 repositories {
     mavenCentral()
@@ -23,12 +20,6 @@ dependencies {
     implementation libs.google.guava
 
     implementation libs.aleph
-}
-
-compileKotlin {
-    kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_1_8
-    }
 }
 
 java {
