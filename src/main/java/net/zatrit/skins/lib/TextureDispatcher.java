@@ -8,7 +8,7 @@ import net.zatrit.skins.lib.api.Resolver;
 import net.zatrit.skins.lib.data.TypedTexture;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
@@ -45,14 +45,26 @@ public class TextureDispatcher {
         @NotNull Stream<CompletableFuture<PlayerTextures>> futures) {
 
         return CompletableFuture.supplyAsync(() -> {
-            val pairs = futures.map(CompletableFuture::join).filter(
-                Objects::nonNull).collect(Collectors.toList());
+            val textures = futures.map(CompletableFuture::join)
+                .filter(Objects::nonNull).collect(Collectors.toList());
 
-            //noinspection DataFlowIssue,ConstantValue,SuspiciousToArrayCall,OptionalGetWithoutIsPresent
-            return Arrays.stream(TextureType.values()).parallel()
-                .map(type -> pairs.stream().map(t -> t.getTexture(type))
-                    .findFirst().get()).map(Objects::nonNull).toArray(
-                    TypedTexture[]::new);
+            val typedTextures = new ArrayList<TypedTexture>(TextureType.values().length);
+            for (val type : TextureType.values()) {
+                TypedTexture typedTexture = null;
+
+                for (val texture : textures) {
+                    if (texture.hasTexture(type)) {
+                        typedTexture = texture.getTexture(type);
+                        break;
+                    }
+                }
+
+                if (typedTexture != null) {
+                    typedTextures.add(typedTexture);
+                }
+            }
+
+            return typedTextures.toArray(new TypedTexture[0]);
         }, config.getExecutor());
     }
 }
