@@ -11,6 +11,7 @@ import net.zatrit.skins.lib.api.Profile;
 import net.zatrit.skins.lib.api.Resolver;
 import net.zatrit.skins.lib.data.MojangTextures;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -41,13 +42,25 @@ public final class GeyserResolver implements Resolver {
     public @NotNull PlayerTextures resolve(@NotNull Profile profile)
         throws IOException, NoSuchElementException {
         var name = profile.getName();
-        val prefix = floodgatePrefixes.stream().filter(name::startsWith)
-            .findFirst().orElseThrow(NoSuchElementException::new);
+
+        @Nullable String prefix = null;
+        for (String floodgatePrefix : floodgatePrefixes) {
+            if (name.startsWith(floodgatePrefix)) {
+                prefix = floodgatePrefix;
+                break;
+            }
+        }
+
+        if (prefix == null) {
+            throw new NoSuchElementException();
+        }
+
         name = name.substring(prefix.length());
 
         val xuidUrl = new URL(GEYSER_XUID_API + name);
-        val xuid = (Long) config.getGson().fromJson(new InputStreamReader(
-            xuidUrl.openStream()), Map.class).get("xuid");
+        val xuid = (Long) config.getGson()
+            .fromJson(new InputStreamReader(xuidUrl.openStream()), Map.class)
+            .get("xuid");
 
         val skinUrl = new URL(GEYSER_SKIN_API + xuid);
         /* value contains literally the same data as properties[0] in the

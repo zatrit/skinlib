@@ -1,7 +1,9 @@
 package net.zatrit.skins.lib;
 
 import lombok.AllArgsConstructor;
+import lombok.SneakyThrows;
 import lombok.val;
+import lombok.var;
 import net.zatrit.skins.lib.api.PlayerTextures;
 import net.zatrit.skins.lib.api.Profile;
 import net.zatrit.skins.lib.api.Resolver;
@@ -9,13 +11,11 @@ import net.zatrit.skins.lib.data.TypedTexture;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
-import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
-import java.util.stream.Collectors;
+import java.util.function.Supplier;
 import java.util.stream.Stream;
-
-import static net.zatrit.skins.lib.util.SneakyLambda.sneaky;
 
 @AllArgsConstructor
 public class TextureDispatcher {
@@ -33,7 +33,13 @@ public class TextureDispatcher {
             /* This function may throw an exception,
              * but it's a CompletableFuture, so
              * an exception won't crash the game. */
-            sneaky(() -> resolver.resolve(profile)), this.config.getExecutor()));
+            new Supplier<PlayerTextures>() {
+                @Override
+                @SneakyThrows
+                public PlayerTextures get() {
+                    return resolver.resolve(profile);
+                }
+            }, this.config.getExecutor()));
     }
 
     /**
@@ -45,8 +51,12 @@ public class TextureDispatcher {
         @NotNull Stream<CompletableFuture<PlayerTextures>> futures) {
 
         return CompletableFuture.supplyAsync(() -> {
-            val textures = futures.map(CompletableFuture::join)
-                .filter(Objects::nonNull).collect(Collectors.toList());
+            val textures = new LinkedList<PlayerTextures>();
+
+            for (var it = futures.iterator(); it.hasNext(); ) {
+                val set = it.next().join();
+                if (set != null) textures.add(set);
+            }
 
             val typedTextures = new ArrayList<TypedTexture>(TextureType.values().length);
             for (val type : TextureType.values()) {
@@ -59,9 +69,7 @@ public class TextureDispatcher {
                     }
                 }
 
-                if (typedTexture != null) {
-                    typedTextures.add(typedTexture);
-                }
+                if (typedTexture != null) typedTextures.add(typedTexture);
             }
 
             return typedTextures.toArray(new TypedTexture[0]);
