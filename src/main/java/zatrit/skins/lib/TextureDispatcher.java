@@ -4,11 +4,11 @@ import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.val;
 import lombok.var;
+import org.jetbrains.annotations.NotNull;
 import zatrit.skins.lib.api.PlayerTextures;
 import zatrit.skins.lib.api.Profile;
 import zatrit.skins.lib.api.Resolver;
 import zatrit.skins.lib.data.TypedTexture;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
