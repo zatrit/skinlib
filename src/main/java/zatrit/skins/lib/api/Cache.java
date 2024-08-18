@@ -1,11 +1,9 @@
-package zatrit.skins.lib.api.cache;
+package zatrit.skins.lib.api;
 
 import java.io.IOException;
 
 /**
- * An abstract cache implementation.
- *
- * @see CacheProvider
+ * An abstract cache.
  */
 public interface Cache {
     /**

@@ -52,7 +52,7 @@ public final class MojangResolver implements Resolver {
                 MojangTextures.class
             ).getTextures(),
             this.config.getLayers(),
-            this.config.getCacheProvider()
+            this.config.getCache()
         );
     }
 }

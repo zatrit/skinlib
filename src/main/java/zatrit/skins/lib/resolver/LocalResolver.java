@@ -1,7 +1,7 @@
 package zatrit.skins.lib.resolver;
 
-import lombok.Cleanup;
 import lombok.val;
+import org.jetbrains.annotations.NotNull;
 import zatrit.skins.lib.BasePlayerTextures;
 import zatrit.skins.lib.Config;
 import zatrit.skins.lib.TextureType;
@@ -11,7 +11,6 @@ import zatrit.skins.lib.api.Resolver;
 import zatrit.skins.lib.api.Texture;
 import zatrit.skins.lib.data.Metadata;
 import zatrit.skins.lib.texture.URLTexture;
-import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -53,15 +52,13 @@ public final class LocalResolver implements Resolver {
             val texturesFile = texturesDir.resolve(typeName).resolve(
                 name + ".png").toFile();
 
-            if (!texturesFile.isFile()) {
-                continue;
-            }
+            if (!texturesFile.isFile()) continue;
 
             val url = texturesFile.toURI().toURL().toString();
             val metadataFile = metadataDir.resolve(name + ".json");
 
             if (metadataFile.toFile().isFile()) {
-                @Cleanup val reader = Files.newBufferedReader(metadataFile);
+                val reader = Files.newBufferedReader(metadataFile);
 
                 metadata = this.config.getGson().fromJson(
                     reader,

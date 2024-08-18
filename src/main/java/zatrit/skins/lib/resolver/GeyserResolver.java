@@ -1,17 +1,16 @@
 package zatrit.skins.lib.resolver;
 
 import lombok.AllArgsConstructor;
-import lombok.Cleanup;
 import lombok.val;
 import lombok.var;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import zatrit.skins.lib.CachedPlayerTextures;
 import zatrit.skins.lib.Config;
 import zatrit.skins.lib.api.PlayerTextures;
 import zatrit.skins.lib.api.Profile;
 import zatrit.skins.lib.api.Resolver;
 import zatrit.skins.lib.data.MojangTextures;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -70,7 +69,7 @@ public final class GeyserResolver implements Resolver {
 
         val decoder = Base64.getDecoder();
         val textureData = decoder.decode(response);
-        @Cleanup val reader = new InputStreamReader(new ByteArrayInputStream(
+        val reader = new InputStreamReader(new ByteArrayInputStream(
             textureData));
 
         return new CachedPlayerTextures<>(
@@ -79,7 +78,7 @@ public final class GeyserResolver implements Resolver {
                 MojangTextures.class
             ).getTextures(),
             this.config.getLayers(),
-            this.config.getCacheProvider()
+            this.config.getCache()
         );
     }
 }

@@ -1,15 +1,14 @@
 package zatrit.skins.lib;
 
 import lombok.val;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import zatrit.skins.lib.api.Layer;
 import zatrit.skins.lib.api.PlayerTextures;
 import zatrit.skins.lib.api.Texture;
-import zatrit.skins.lib.api.cache.Cache;
-import zatrit.skins.lib.api.cache.CacheProvider;
+import zatrit.skins.lib.api.Cache;
 import zatrit.skins.lib.data.TypedTexture;
 import zatrit.skins.lib.texture.LazyTexture;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.Collection;
 import java.util.Map;
@@ -28,9 +27,9 @@ public class CachedPlayerTextures<T extends Texture>
     public CachedPlayerTextures(
         @NotNull Map<TextureType, T> map,
         @NotNull Collection<Layer<TypedTexture>> layers,
-        @Nullable CacheProvider cacheProvider) {
+        @Nullable Cache cache) {
         super(map, layers);
-        this.cache = cacheProvider != null ? cacheProvider.getSkinCache() : null;
+        this.cache = cache;
     }
 
     @Override
@@ -45,7 +44,7 @@ public class CachedPlayerTextures<T extends Texture>
         return new LazyTexture(texture.getId(), texture.getMetadata()) {
             @Override
             public byte[] getBytes() {
-                return cache.getOrLoad(texture.getId(), texture::getBytes);
+                return cache.getOrLoad(texture.getId(), texture);
             }
         };
     }

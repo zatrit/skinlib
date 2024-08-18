@@ -35,7 +35,7 @@ public final class ValhallaResolver implements Resolver {
                 .fromJson(new InputStreamReader(stream), MojangTextures.class)
                 .getTextures(),
             this.config.getLayers(),
-            this.config.getCacheProvider()
+            this.config.getCache()
         );
     }
 }

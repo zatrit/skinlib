@@ -8,7 +8,7 @@ import java.io.IOException;
 /**
  * An abstract texture that can be converted to a {@link Byte} array.
  */
-public interface Texture {
+public interface Texture extends Cache.LoadFunction {
     /**
      * Texture name used during caching.
      */
@@ -23,4 +23,9 @@ public interface Texture {
      * @return the texture image as a byte array.
      */
     byte[] getBytes() throws IOException;
+
+    @Override
+    default byte[] load() throws IOException {
+        return getBytes();
+    }
 }

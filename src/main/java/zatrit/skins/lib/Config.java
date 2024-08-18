@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import zatrit.skins.lib.api.Layer;
-import zatrit.skins.lib.api.cache.CacheProvider;
+import zatrit.skins.lib.api.Cache;
 import zatrit.skins.lib.data.TypedTexture;
 import zatrit.skins.lib.util.AnyCaseEnumDeserializer;
 import org.jetbrains.annotations.NotNull;
@@ -21,7 +21,7 @@ import java.util.concurrent.Executors;
 @Setter
 @NoArgsConstructor
 public final class Config {
-    private @Nullable CacheProvider cacheProvider;
+    private @Nullable Cache cache;
     private @NotNull Collection<Layer<TypedTexture>> layers = Collections.emptyList();
     // Very cool Gson that parses TextureType ignoring case
     private @NotNull Gson gson = new GsonBuilder().registerTypeAdapter(

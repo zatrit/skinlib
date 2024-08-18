@@ -52,7 +52,7 @@ public final class NamedHTTPResolver implements Resolver {
         return new CachedPlayerTextures<>(
             this.config.getGson().fromJson(reader, type),
             this.config.getLayers(),
-            this.config.getCacheProvider()
+            this.config.getCache()
         );
     }
 }

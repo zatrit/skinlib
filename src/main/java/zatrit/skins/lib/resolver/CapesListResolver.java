@@ -57,7 +57,7 @@ public abstract class CapesListResolver implements Resolver {
         return new CachedPlayerTextures<>(
             textures,
             this.config.getLayers(),
-            this.config.getCacheProvider()
+            this.config.getCache()
         );
     }
 }

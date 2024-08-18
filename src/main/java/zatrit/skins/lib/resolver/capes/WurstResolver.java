@@ -1,10 +1,10 @@
 package zatrit.skins.lib.resolver.capes;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import zatrit.skins.lib.Config;
 import zatrit.skins.lib.api.Profile;
 import zatrit.skins.lib.resolver.CapesListResolver;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
