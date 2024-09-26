@@ -9,6 +9,7 @@ import zatrit.skins.lib.api.Texture;
 import zatrit.skins.lib.data.Metadata;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 
 /**
@@ -25,8 +26,7 @@ public class URLTexture implements Texture {
     }
 
     @Override
-    public byte[] getBytes() throws IOException {
-        @Cleanup val stream = new URL(this.url).openStream();
-        return ByteStreams.toByteArray(stream);
+    public InputStream getInputStream() throws IOException {
+        return new URL(this.url).openStream();
     }
 }

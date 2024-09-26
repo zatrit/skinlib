@@ -6,7 +6,7 @@ import zatrit.skins.lib.api.Texture;
 import zatrit.skins.lib.data.Metadata;
 
 /**
- * A texture that loads its content using {@link #getBytes()} method.
+ * A texture that loads its content using {@link #getInputStream()} method.
  */
 @Getter
 @AllArgsConstructor

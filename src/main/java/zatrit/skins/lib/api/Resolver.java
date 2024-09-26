@@ -15,9 +15,9 @@ public interface Resolver {
     }
 
     /**
-     * Refresh all currently cached data.
+     * Reset all currently cached data.
      */
-    default void refresh() {}
+    default void reset() {}
 
     /**
      * @return player-specific texture loader.

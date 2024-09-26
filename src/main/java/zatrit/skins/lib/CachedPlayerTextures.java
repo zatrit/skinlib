@@ -3,19 +3,19 @@ package zatrit.skins.lib;
 import lombok.val;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import zatrit.skins.lib.api.Cache;
 import zatrit.skins.lib.api.Layer;
 import zatrit.skins.lib.api.PlayerTextures;
 import zatrit.skins.lib.api.Texture;
-import zatrit.skins.lib.api.Cache;
 import zatrit.skins.lib.data.TypedTexture;
 import zatrit.skins.lib.texture.LazyTexture;
 
+import java.io.InputStream;
 import java.util.Collection;
 import java.util.Map;
 
 /**
- * Implementation of {@link PlayerTextures} with caching support with
- * {@link CacheProvider}.
+ * Implementation of {@link PlayerTextures} with caching support with {@link Cache}.
  *
  * @param <T> texture type.
  * @see PlayerTextures
@@ -43,8 +43,8 @@ public class CachedPlayerTextures<T extends Texture>
 
         return new LazyTexture(texture.getId(), texture.getMetadata()) {
             @Override
-            public byte[] getBytes() {
-                return cache.getOrLoad(texture.getId(), texture);
+            public InputStream getInputStream() {
+                return cache.getCachedInputStream(texture.getId(), texture);
             }
         };
     }

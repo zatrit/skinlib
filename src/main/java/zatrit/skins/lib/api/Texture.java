@@ -1,9 +1,10 @@
 package zatrit.skins.lib.api;
 
-import zatrit.skins.lib.data.Metadata;
 import org.jetbrains.annotations.Nullable;
+import zatrit.skins.lib.data.Metadata;
 
 import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * An abstract texture that can be converted to a {@link Byte} array.
@@ -20,12 +21,8 @@ public interface Texture extends Cache.LoadFunction {
      * May contain I/O operations, as usage implies execution in
      * a parallel game thread so that the game does not freeze.
      *
-     * @return the texture image as a byte array.
+     * @return the {@link InputStream} containing texture data.
      */
-    byte[] getBytes() throws IOException;
-
     @Override
-    default byte[] load() throws IOException {
-        return getBytes();
-    }
+    InputStream getInputStream() throws IOException;
 }

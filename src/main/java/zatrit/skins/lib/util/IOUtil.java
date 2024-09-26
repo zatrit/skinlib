@@ -19,7 +19,8 @@ public class IOUtil {
         throws IOException {
         val connection = url.openConnection();
 
-        // An easy way to check that the code means OK (2XX).
+        /* An easy way to check that the code means OK (2XX).
+         Some APIs may return JSON with an error with non-OK code, so it should be checked. */
         if (connection instanceof HttpURLConnection) {
             val httpConnection = (HttpURLConnection) connection;
             if (httpConnection.getResponseCode() / 100 != 2) {

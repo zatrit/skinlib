@@ -1,6 +1,7 @@
 package zatrit.skins.lib.api;
 
 import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * An abstract cache.
@@ -8,12 +9,12 @@ import java.io.IOException;
 @FunctionalInterface
 public interface Cache {
     /**
-     * Loads bytes from cache if present, else loads using passed function.
+     * Creates an {@link InputStream} with cached data if it is present, otherwise loads it with the passed function.
      */
-    byte[] getOrLoad(String id, LoadFunction load);
+    InputStream getCachedInputStream(String id, LoadFunction load);
 
     @FunctionalInterface
     interface LoadFunction {
-        byte[] load() throws IOException;
+        InputStream getInputStream() throws IOException;
     }
 }

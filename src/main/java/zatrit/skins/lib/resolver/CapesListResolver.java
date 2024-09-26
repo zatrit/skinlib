@@ -27,7 +27,7 @@ public abstract class CapesListResolver implements Resolver {
     protected abstract String getUrl(String capeName);
 
     @Override
-    public synchronized void refresh() {
+    public synchronized void reset() {
         this.owners = null;
     }
 

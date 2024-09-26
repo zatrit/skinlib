@@ -1,9 +1,9 @@
 package zatrit.skins.lib.layer.awt;
 
 import lombok.val;
+import org.jetbrains.annotations.NotNull;
 import zatrit.skins.lib.TextureType;
 import zatrit.skins.lib.data.TypedTexture;
-import org.jetbrains.annotations.NotNull;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;
@@ -25,10 +25,10 @@ public class LegacySkinLayer extends ImageLayer {
 
         graphics.drawImage(input, 0, 0, null);
 
-        // I'd like to apologize to anyone who understands how
-        // AffineTransform works. This code was created by trial
-        // and error, so it may be imperfect. If you know how to
-        // improve it, feel free to make a pull request.
+        /* I'd like to apologize to anyone who understands how
+         AffineTransform works. This code was created by trial
+         and error, so it may be imperfect. If you know how to
+         improve it, feel free to make a pull request. */
         drawMirrored(dest, graphics, 0, 20, 16, 52, 12, 12);
         drawMirrored(dest, graphics, 12, 20, 28, 52, 4, 12);
         drawMirrored(dest, graphics, 4, 16, 20, 48, 4, 4);
