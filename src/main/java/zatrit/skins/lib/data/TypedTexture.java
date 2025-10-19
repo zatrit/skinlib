@@ -10,6 +10,6 @@ import zatrit.skins.lib.api.Texture;
 @Setter
 @AllArgsConstructor
 public class TypedTexture {
-    private final Texture texture;
-    private final TextureType type;
+  private final Texture texture;
+  private final TextureType type;
 }

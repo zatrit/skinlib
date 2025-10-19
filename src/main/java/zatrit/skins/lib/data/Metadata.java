@@ -6,15 +6,12 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.jetbrains.annotations.Nullable;
 
-/**
- * A class that describes texture parameters
- * such as the model and whether it is animated.
- */
+/** A class that describes texture parameters such as the model and whether it is animated. */
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class Metadata {
-    private boolean animated = false;
-    private @Nullable String model;
+  private boolean animated = false;
+  private @Nullable String model;
 }
