@@ -26,7 +26,7 @@ public final class Config {
   private @NotNull Gson gson =
       new GsonBuilder()
           .registerTypeAdapter(
-              TextureType.class, new AnyCaseEnumDeserializer<>(TextureType.values()))
+              TextureType.class, new AnyCaseEnumDeserializer<TextureType>(TextureType.values()))
           .create();
   private @NotNull Executor executor = Executors.newCachedThreadPool();
 }

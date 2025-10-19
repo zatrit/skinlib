@@ -54,7 +54,8 @@ public class TextureDispatcher {
         () -> {
           val textures = new LinkedList<PlayerTextures>();
 
-          for (var it = futures.iterator(); it.hasNext(); ) {
+          val it = futures.iterator();
+          while (it.hasNext()) {
             val set = it.next().join();
             if (set != null) textures.add(set);
           }

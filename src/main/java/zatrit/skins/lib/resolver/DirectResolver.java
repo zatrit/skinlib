@@ -3,7 +3,7 @@ package zatrit.skins.lib.resolver;
 import static net.andreinc.aleph.AlephFormatter.str;
 
 import java.io.IOException;
-import java.net.URL;
+import java.net.URI;
 import java.util.Collection;
 import java.util.EnumMap;
 import java.util.HashMap;
@@ -50,7 +50,7 @@ public final class DirectResolver implements Resolver {
 
   @SneakyThrows
   private @Nullable Texture downloadTexture(HashMap<String, Object> replaces, TextureType type) {
-    val url = new URL(str(this.baseUrl, replaces).arg("type", type).fmt());
+    val url = URI.create(str(this.baseUrl, replaces).arg("type", type).fmt()).toURL();
     val content = IOUtil.download(url);
     if (content != null) {
       return new BytesTexture(url.toString(), content, null);

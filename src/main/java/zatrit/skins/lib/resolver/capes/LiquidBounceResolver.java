@@ -2,7 +2,7 @@ package zatrit.skins.lib.resolver.capes;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.URL;
+import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
 import lombok.val;
@@ -25,7 +25,9 @@ public final class LiquidBounceResolver extends CapesListResolver {
     val owners =
         this.config
             .getGson()
-            .fromJson(new InputStreamReader(new URL(CARRIERS_URL).openStream()), String[][].class);
+            .fromJson(
+                new InputStreamReader(URI.create(CARRIERS_URL).toURL().openStream()),
+                String[][].class);
     val uuidOwners = new HashMap<String, String>();
 
     for (val pair : owners) {

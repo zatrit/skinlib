@@ -33,8 +33,7 @@ public abstract class ImageLayer implements Layer<TypedTexture> {
           @Override
           public @NotNull InputStream getInputStream() throws IOException {
             @Cleanup val stream = old.getInputStream();
-
-            var image = apply(ImageIO.read(stream));
+            val image = apply(ImageIO.read(stream));
 
             @Cleanup val outputStream = new ByteArrayOutputStream();
             ImageIO.write(image, "png", outputStream);

@@ -1,7 +1,7 @@
 package zatrit.skins.lib.resolver.capes;
 
 import java.io.IOException;
-import java.net.URL;
+import java.net.URI;
 import java.util.Collections;
 import java.util.Objects;
 import lombok.AllArgsConstructor;
@@ -34,7 +34,7 @@ public final class OptifineResolver implements Resolver {
   @Override
   public @NotNull PlayerTextures resolve(@NotNull Profile profile)
       throws IOException, NullPointerException {
-    val url = new URL(this.baseUrl + "/capes/" + profile.getName() + ".png");
+    val url = URI.create(this.baseUrl + "/capes/" + profile.getName() + ".png").toURL();
     val texture =
         new BytesTexture(url.toString(), Objects.requireNonNull(IOUtil.download(url)), null);
 

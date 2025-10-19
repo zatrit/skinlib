@@ -1,7 +1,6 @@
 package zatrit.skins.lib.layer.awt;
 
 import java.awt.*;
-import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import lombok.val;
 import org.jetbrains.annotations.NotNull;
@@ -26,14 +25,20 @@ public class LegacySkinLayer extends ImageLayer {
     AffineTransform works. This code was created by trial
     and error, so it may be imperfect. If you know how to
     improve it, feel free to make a pull request. */
-    drawMirrored(dest, graphics, 0, 20, 16, 52, 12, 12);
-    drawMirrored(dest, graphics, 12, 20, 28, 52, 4, 12);
-    drawMirrored(dest, graphics, 4, 16, 20, 48, 4, 4);
-    drawMirrored(dest, graphics, 8, 16, 24, 48, 4, 4);
-    drawMirrored(dest, graphics, 40, 20, 32, 52, 12, 12);
-    drawMirrored(dest, graphics, 52, 20, 44, 52, 4, 12);
-    drawMirrored(dest, graphics, 44, 16, 36, 48, 4, 4);
-    drawMirrored(dest, graphics, 48, 16, 40, 48, 4, 4);
+    int[][] regions = {
+      {0, 20, 16, 52, 12, 12},
+      {12, 20, 28, 52, 4, 12},
+      {4, 16, 20, 48, 4, 4},
+      {8, 16, 24, 48, 4, 4},
+      {40, 20, 32, 52, 12, 12},
+      {52, 20, 44, 52, 4, 12},
+      {44, 16, 36, 48, 4, 4},
+      {48, 16, 40, 48, 4, 4}
+    };
+
+    for (int[] r : regions) {
+      drawMirrored(input, graphics, r[0], r[1], r[2], r[3], r[4], r[5]);
+    }
 
     graphics.dispose();
 
@@ -42,15 +47,14 @@ public class LegacySkinLayer extends ImageLayer {
 
   private void drawMirrored(
       @NotNull BufferedImage src,
-      @NotNull Graphics2D graphics,
+      @NotNull Graphics2D g,
       int sx,
       int sy,
       int dx,
       int dy,
       int w,
       int h) {
-    graphics.drawImage(
-        src.getSubimage(sx, sy, w, h), new AffineTransform(-1, 0, 0, 1, dx + w, dy), null);
+    g.drawImage(src, dx, dy, dx + w, dy + h, sx + w, sy, sx, sy + h, null);
   }
 
   @Override

@@ -3,7 +3,7 @@ package zatrit.skins.lib.resolver;
 import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.URL;
+import java.net.URI;
 import java.util.EnumMap;
 import lombok.AllArgsConstructor;
 import lombok.Cleanup;
@@ -34,7 +34,7 @@ public final class NamedHTTPResolver implements Resolver {
 
   @Override
   public @NotNull PlayerTextures resolve(@NotNull Profile profile) throws IOException {
-    val url = new URL(this.baseUrl + profile.getName());
+    val url = URI.create(this.baseUrl + profile.getName()).toURL();
     @Cleanup val reader = new InputStreamReader(url.openStream());
 
     // Type for EnumMap<TextureType, URLTexture>

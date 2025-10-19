@@ -2,7 +2,7 @@ package zatrit.skins.lib.resolver;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.URL;
+import java.net.URI;
 import java.util.Base64;
 import java.util.EnumMap;
 import lombok.AllArgsConstructor;
@@ -34,7 +34,7 @@ public final class MinecraftCapesResolver implements Resolver {
   @Override
   public @NotNull PlayerTextures resolve(@NotNull Profile profile) throws IOException {
     val url = MINECRAFTCAPES_API + profile.getShortId();
-    @Cleanup val reader = new InputStreamReader(new URL(url).openStream());
+    @Cleanup val reader = new InputStreamReader(URI.create(url).toURL().openStream());
     val response = this.config.getGson().fromJson(reader, MCCapesResponse.class);
     val textures = new EnumMap<TextureType, Texture>(TextureType.class);
 

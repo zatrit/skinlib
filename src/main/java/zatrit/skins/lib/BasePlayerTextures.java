@@ -37,7 +37,7 @@ public class BasePlayerTextures<T extends Texture> implements PlayerTextures {
     }
 
     val texture = this.wrapTexture(this.map.get(type));
-    var typedTexture = new TypedTexture(texture, type);
+    TypedTexture typedTexture = new TypedTexture(texture, type);
 
     for (val layer : layers) {
       typedTexture = layer.apply(typedTexture);

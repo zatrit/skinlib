@@ -2,6 +2,7 @@ package zatrit.skins.lib.texture;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URI;
 import java.net.URL;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,6 +22,6 @@ public class URLTexture implements Texture {
 
   @Override
   public InputStream getInputStream() throws IOException {
-    return new URL(this.url).openStream();
+    return URI.create(this.url).toURL().openStream();
   }
 }

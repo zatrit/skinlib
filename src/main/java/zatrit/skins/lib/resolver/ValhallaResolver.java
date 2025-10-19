@@ -2,7 +2,7 @@ package zatrit.skins.lib.resolver;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.URL;
+import java.net.URI;
 import lombok.AllArgsConstructor;
 import lombok.Cleanup;
 import lombok.val;
@@ -26,7 +26,7 @@ public final class ValhallaResolver implements Resolver {
   @Override
   public @NotNull PlayerTextures resolve(@NotNull Profile profile) throws IOException {
     val url = this.baseUrl + profile.getId();
-    @Cleanup val stream = new URL(url).openStream();
+    @Cleanup val stream = URI.create(url).toURL().openStream();
 
     return new CachedPlayerTextures<>(
         this.config

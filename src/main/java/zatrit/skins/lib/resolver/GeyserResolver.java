@@ -3,7 +3,8 @@ package zatrit.skins.lib.resolver;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.URL;
+import java.net.URI;
+import java.net.http.HttpClient;
 import java.util.Base64;
 import java.util.Collection;
 import java.util.Map;
@@ -38,7 +39,7 @@ public final class GeyserResolver implements Resolver {
   @Override
   public @NotNull PlayerTextures resolve(@NotNull Profile profile)
       throws IOException, NoSuchElementException {
-    var name = profile.getName();
+    String name = profile.getName();
 
     @Nullable String prefix = null;
     for (String floodgatePrefix : floodgatePrefixes) {
@@ -48,13 +49,15 @@ public final class GeyserResolver implements Resolver {
       }
     }
 
+    HttpClient client;
+
     if (prefix == null) {
       throw new NoSuchElementException();
     }
 
     name = name.substring(prefix.length());
 
-    val xuidUrl = new URL(GEYSER_XUID_API + name);
+    val xuidUrl = URI.create(GEYSER_XUID_API + name).toURL();
     val xuid =
         (Long)
             config
@@ -62,7 +65,7 @@ public final class GeyserResolver implements Resolver {
                 .fromJson(new InputStreamReader(xuidUrl.openStream()), Map.class)
                 .get("xuid");
 
-    val skinUrl = new URL(GEYSER_SKIN_API + xuid);
+    val skinUrl = URI.create(GEYSER_SKIN_API + xuid).toURL();
     /* value contains literally the same data as properties[0] in the
     Mojang API response, so it can be decoded in the same way */
     val response =

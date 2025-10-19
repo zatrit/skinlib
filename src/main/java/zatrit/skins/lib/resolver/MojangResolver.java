@@ -3,7 +3,7 @@ package zatrit.skins.lib.resolver;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.URL;
+import java.net.URI;
 import java.util.Base64;
 import lombok.AllArgsConstructor;
 import lombok.Cleanup;
@@ -29,7 +29,7 @@ public final class MojangResolver implements Resolver {
     val gson = this.config.getGson();
     val url = MOJANG_SKIN_API + profile.getShortId();
 
-    @Cleanup val stream = new URL(url).openStream();
+    @Cleanup val stream = URI.create(url).toURL().openStream();
     val response = gson.fromJson(new InputStreamReader(stream), MojangResponse.class);
 
     val decoder = Base64.getDecoder();

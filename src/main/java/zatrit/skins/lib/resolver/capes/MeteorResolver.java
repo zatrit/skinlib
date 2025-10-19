@@ -3,10 +3,11 @@ package zatrit.skins.lib.resolver.capes;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
-import java.net.URL;
+import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
+import lombok.Cleanup;
 import lombok.val;
 import org.jetbrains.annotations.NotNull;
 import zatrit.skins.lib.Config;
@@ -23,7 +24,7 @@ public final class MeteorResolver extends CapesListResolver {
   }
 
   private static @NotNull Map<String, String> parseTable(Reader reader) {
-    val scanner = new Scanner(reader);
+    @Cleanup val scanner = new Scanner(reader);
     val map = new HashMap<String, String>();
 
     while (scanner.hasNextLine()) {
@@ -36,9 +37,9 @@ public final class MeteorResolver extends CapesListResolver {
 
   @Override
   protected @NotNull Map<String, String> fetchList() throws IOException {
-    capes = parseTable(new InputStreamReader(new URL(CAPES_URL).openStream()));
+    capes = parseTable(new InputStreamReader(URI.create(CAPES_URL).toURL().openStream()));
 
-    val owners = parseTable(new InputStreamReader(new URL(OWNERS_URL).openStream()));
+    val owners = parseTable(new InputStreamReader(URI.create(OWNERS_URL).toURL().openStream()));
     val uuidOwners = new HashMap<String, String>();
 
     for (val pair : owners.entrySet()) {

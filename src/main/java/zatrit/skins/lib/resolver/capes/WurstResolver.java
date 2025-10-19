@@ -2,7 +2,7 @@ package zatrit.skins.lib.resolver.capes;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.URL;
+import java.net.URI;
 import java.util.Map;
 import java.util.Objects;
 import java.util.TreeMap;
@@ -25,7 +25,8 @@ public class WurstResolver extends CapesListResolver {
     return (Map<String, String>)
         this.config
             .getGson()
-            .fromJson(new InputStreamReader(new URL(CAPES_URL).openStream()), TreeMap.class);
+            .fromJson(
+                new InputStreamReader(URI.create(CAPES_URL).toURL().openStream()), TreeMap.class);
   }
 
   @Override

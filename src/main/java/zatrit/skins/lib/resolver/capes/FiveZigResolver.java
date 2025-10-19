@@ -2,7 +2,7 @@ package zatrit.skins.lib.resolver.capes;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.URL;
+import java.net.URI;
 import java.util.Base64;
 import java.util.EnumMap;
 import java.util.Map;
@@ -26,7 +26,8 @@ public final class FiveZigResolver implements Resolver {
   @Override
   public @NotNull PlayerTextures resolve(@NotNull Profile profile) throws IOException {
     val url = FIVEZIG_API + profile.getId();
-    @Cleanup val reader = new InputStreamReader(new URL(url).openStream());
+    @Cleanup val reader = new InputStreamReader(URI.create(url).toURL().openStream());
+    @SuppressWarnings("rawtypes")
     val response = this.config.getGson().fromJson(reader, Map.class);
 
     val textures = new EnumMap<TextureType, BytesTexture>(TextureType.class);
