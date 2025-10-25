@@ -4,7 +4,6 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URI;
-import java.net.http.HttpClient;
 import java.util.Base64;
 import java.util.Collection;
 import java.util.Map;
