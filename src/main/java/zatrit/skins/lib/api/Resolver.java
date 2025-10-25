@@ -1,5 +1,6 @@
 package zatrit.skins.lib.api;
 
+import java.io.IOException;
 import org.jetbrains.annotations.NotNull;
 
 /** Interface that describes skin resolving mechanism. */
@@ -16,5 +17,5 @@ public interface Resolver {
    * @return player-specific texture loader.
    */
   @NotNull
-  PlayerTextures resolve(Profile profile) throws Exception;
+  PlayerTextures resolve(Profile profile) throws IOException;
 }

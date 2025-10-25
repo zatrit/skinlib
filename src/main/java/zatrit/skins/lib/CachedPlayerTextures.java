@@ -1,5 +1,6 @@
 package zatrit.skins.lib;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collection;
 import java.util.Map;
@@ -41,7 +42,7 @@ public class CachedPlayerTextures<T extends Texture> extends BasePlayerTextures<
 
     return new LazyTexture(texture.getId(), texture.getMetadata()) {
       @Override
-      public InputStream getInputStream() {
+      public InputStream getInputStream() throws IOException {
         return cache.getCachedInputStream(texture.getId(), texture);
       }
     };

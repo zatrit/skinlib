@@ -10,7 +10,7 @@ public interface Cache {
    * Creates an {@link InputStream} with cached data if it is present, otherwise loads it with the
    * passed function.
    */
-  InputStream getCachedInputStream(String id, LoadFunction load);
+  InputStream getCachedInputStream(String id, LoadFunction load) throws IOException;
 
   @FunctionalInterface
   interface LoadFunction {

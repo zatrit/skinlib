@@ -35,7 +35,7 @@ public abstract class CapesListResolver implements Resolver {
   }
 
   @Override
-  public @NotNull PlayerTextures resolve(@NotNull Profile profile) throws Exception {
+  public @NotNull PlayerTextures resolve(@NotNull Profile profile) throws IOException {
     synchronized (this) {
       if (this.owners == null) {
         this.owners = this.fetchList();

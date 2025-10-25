@@ -5,7 +5,6 @@ import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
 import java.lang.reflect.Type;
-import java.util.Arrays;
 import lombok.AllArgsConstructor;
 import lombok.val;
 import org.jetbrains.annotations.ApiStatus;
@@ -29,16 +28,20 @@ public class AnyCaseEnumDeserializer<T extends Enum<?>> implements JsonDeseriali
       throw new JsonParseException("Expecting a String JsonPrimitive, getting " + json);
     }
 
-    val asString = json.getAsString().toLowerCase();
-    val variant =
-        Arrays.stream(this.enumConstants)
-            .filter(v -> v.toString().toLowerCase().equals(asString))
-            .findFirst();
+    val raw = json.getAsString();
 
-    if (!variant.isPresent()) {
-      throw new JsonParseException("No matching enum variant found for " + asString);
+    T variant = null;
+    for (T constant : enumConstants) {
+      if (constant.toString().equalsIgnoreCase(raw)) {
+        variant = constant;
+        break;
+      }
     }
 
-    return variant.get();
+    if (variant == null) {
+      throw new JsonParseException("No matching enum variant found for " + raw);
+    }
+
+    return variant;
   }
 }

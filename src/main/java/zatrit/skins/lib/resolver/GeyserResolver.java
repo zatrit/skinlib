@@ -49,8 +49,6 @@ public final class GeyserResolver implements Resolver {
       }
     }
 
-    HttpClient client;
-
     if (prefix == null) {
       throw new NoSuchElementException();
     }
